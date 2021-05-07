@@ -10,13 +10,49 @@ Welcome to your new app.
      @innerPos
     </div>
 </div>
+
+<!--
+<Alert Show="@ShowAlert">
+    <span class="oi oi-check mr-2" aria-hidden="true"></span>
+    <strong>Blazor is too cool!</strong>
+</Alert>
+-->
+<DismissableAlert @bind-Show="@ShowAlert">
+     <span class="oi oi-check mr-2" aria-hidden="true"></span>
+    <strong>Blazor is too cool!</strong>
+</DismissableAlert>
+
+<Timer TimeInSeconds="5" Tick="@ToggleAlert"/>
+<button @onclick="@ToggleAlert">Toggle</button>
 @code{
     private string innerPos = "Nothing yet";
     private string outerPos;
+    private bool showAlert = true;
 
     private void OuterMouseMove(MouseEventArgs e) 
         => outerPos = $"Mouse last at {e.ClientX}x{e.ClientY}";
     private void InnerMouseMove(MouseEventArgs e)
         => innerPos = $"Mouse last at {e.ClientX}x{e.ClientY}";
+
+
+    public bool ShowAlert
+    {
+        get => showAlert;
+        set
+        {
+            if (value != showAlert)
+            {
+                showAlert = value;
+                this.StateHasChanged();
+            }
+        }
+    }
+
+    public void ToggleAlert()
+    {
+        Console.WriteLine("+++");
+        ShowAlert = !ShowAlert;
+      //  StateHasChanged();
+    }
 
 }

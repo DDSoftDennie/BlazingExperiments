@@ -9,9 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazingExperiments.Client",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazingExperiments.Shared", "BlazingExperiments\Shared\BlazingExperiments.Shared.csproj", "{54F34CB9-25A2-40E6-93FB-C99E829440E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DDTrips", "DDTrips\DDTrips.csproj", "{252D2205-2C31-4C57-8E33-FB8021469E29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DDTrips", "DDTrips\DDTrips.csproj", "{252D2205-2C31-4C57-8E33-FB8021469E29}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DDTrips.Data", "DDTrips.Data\DDTrips.Data.csproj", "{89F61C00-CC3D-420D-AD29-6C0BA206FE26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DDTrips.Data", "DDTrips.Data\DDTrips.Data.csproj", "{89F61C00-CC3D-420D-AD29-6C0BA206FE26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

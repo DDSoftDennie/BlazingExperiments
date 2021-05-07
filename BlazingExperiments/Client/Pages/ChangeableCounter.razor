@@ -1,0 +1,36 @@
+﻿@page "/changeablecounter"
+<h3>Counter</h3>
+<p>
+    <strong>Current count: </strong><input @bind=count  @bind:event="oninput" />
+    <span hidden="@(count <=10)" class="red-color">Count is too high!</span>
+    <span hidden="@(!numberError)" class="red-color">Only digits alowed!</span>
+    <br />
+    <button class="btn btn-primary" @onclick="Increase">Increase</button>
+    <br />
+     <strong>@count</strong>
+</p>
+
+@code {
+    int count = 0;
+    bool numberError = false;
+ 
+
+    private void Increase(EventArgs e)
+    {
+        if (count < 10)
+        {
+            count++;
+
+        }
+    }
+
+    private void KeyHandler(KeyboardEventArgs e)
+    {
+      
+       if (e.Key == "-")
+        {
+            count = count - 1;
+        }
+    }
+
+}

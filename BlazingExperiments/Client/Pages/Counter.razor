@@ -1,0 +1,19 @@
+﻿@page "/counter"
+
+<h1>Counter</h1>
+
+<p class="@colorStyle @align">Current count: @currentCount</p>
+<button class="btn btn-primary" @onclick="IncrementCount" disabled="@(currentCount >=10)">Click me</button>
+
+@code {
+    private string colorStyle = "blue-color";
+    private string align = "left";
+    public int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+        colorStyle = currentCount >= 5 ? colorStyle = "red-color" : "blue-color";
+        align = currentCount % 2 == 0 ? align = "left" : "right";
+    }
+}

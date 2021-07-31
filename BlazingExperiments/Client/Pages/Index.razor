@@ -11,48 +11,38 @@ Welcome to your new app.
     </div>
 </div>
 
-<!--
-<Alert Show="@ShowAlert">
+<DismissableAlert @ref="alert" @bind-Show="@ShowAlert">
     <span class="oi oi-check mr-2" aria-hidden="true"></span>
-    <strong>Blazor is too cool!</strong>
-</Alert>
--->
-<DismissableAlert @bind-Show="@ShowAlert">
-     <span class="oi oi-check mr-2" aria-hidden="true"></span>
-    <strong>Blazor is too cool!</strong>
-</DismissableAlert>
+    <strong>Blazor is soo cool!</strong>
+</DismissableAlert>"
 
-<Timer TimeInSeconds="5" Tick="@ToggleAlert"/>
+<Timer TimeInSeconds="5" Tick="@(() => alert.Dismiss())"/>
 <button @onclick="@ToggleAlert">Toggle</button>
+
+<GrandMother>
+    <GrandChild/>
+    <DismissableAlert Show="true">
+        <GrandChild/>
+    </DismissableAlert>
+</GrandMother>
+
+
 @code{
     private string innerPos = "Nothing yet";
     private string outerPos;
-    private bool showAlert = true;
+    private bool ShowAlert { get; set; } = true;
+    private DismissableAlert alert;
+ 
+
 
     private void OuterMouseMove(MouseEventArgs e) 
         => outerPos = $"Mouse last at {e.ClientX}x{e.ClientY}";
     private void InnerMouseMove(MouseEventArgs e)
         => innerPos = $"Mouse last at {e.ClientX}x{e.ClientY}";
 
-
-    public bool ShowAlert
-    {
-        get => showAlert;
-        set
-        {
-            if (value != showAlert)
-            {
-                showAlert = value;
-                this.StateHasChanged();
-            }
-        }
-    }
-
     public void ToggleAlert()
     {
-        Console.WriteLine("+++");
         ShowAlert = !ShowAlert;
-      //  StateHasChanged();
     }
 
 }

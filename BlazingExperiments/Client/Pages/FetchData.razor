@@ -1,6 +1,5 @@
 ﻿@page "/fetchdata"
-@using BlazingExperiments.Shared
-@inject HttpClient Http
+
 
 <h1>Weather forecast</h1>
 
@@ -12,6 +11,8 @@
 }
 else
 {
+    
+    @*  
     <table class="table">
         <thead>
             <tr>
@@ -33,14 +34,56 @@ else
             }
         </tbody>
     </table>
+     *@
+    <Grid Items="forecasts" TItem="WeatherForecast">
+        <Header>
+          <th>Date</th>  
+          <th>Temp. (C)</th>
+          <th>Temp. (F)</th>
+          <th>Summary</th>
+        </Header>
+        <Row Context="forecast">
+            <!-- by default called context-->
+            <td>@forecast.Date.ToShortDateString()</td>
+            <td>@forecast.TemperatureC</td>
+            <td>@forecast.TemperatureF</td>
+            <td>@forecast.Summary</td>
+        </Row>
+        <Footer>
+           <td colspan="4"> Summer times!</td>
+        </Footer>
+    </Grid>
 }
 
 @code {
-    private WeatherForecast[] forecasts;
+    public List<WeatherForecast>forecasts;
 
-    protected override async Task OnInitializedAsync()
+
+    protected override void OnInitialized()
     {
-        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+        base.OnInitialized();
+        forecasts = new List<WeatherForecast>();
+        forecasts.Add(new WeatherForecast
+        {
+            Date = new DateTime(2021, 7, 31),
+            TemperatureC = 20,
+            Summary = "Too cold for summer!"
+        });
+           forecasts.Add(new WeatherForecast
+        {
+            Date = new DateTime(2021, 8, 1),
+            TemperatureC = 22,
+            Summary = "Too cold for summer!"
+        });
+
+           forecasts.Add(new WeatherForecast
+        {
+            Date = new DateTime(2021, 8,2),
+            TemperatureC = 25,
+            Summary = "Starting... To get better!"
+        });
+
     }
+
 
 }

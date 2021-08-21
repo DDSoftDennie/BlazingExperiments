@@ -1,4 +1,6 @@
 ﻿@page "/fetchdata"
+@using BlazingExperiments.Shared
+@inject HttpClient Http
 
 
 <h1>Weather forecast</h1>
@@ -53,35 +55,32 @@ else
            <td colspan="4"> Summer times!</td>
         </Footer>
     </Grid>
+
+    <ListView Items="forecasts">
+        <ItemTemplate>
+            @forecastTemplate(context)
+		</ItemTemplate>
+	</ListView>
+    @forecastTemplate(
+        new WeatherForecast{
+            Date = DateTime.Now,
+            TemperatureC = 23,
+            Summary ="Cloudy.."
+        }
+    )
 }
 
+
 @code {
-    public List<WeatherForecast>forecasts;
+    RenderFragment<WeatherForecast> forecastTemplate = (forecast)
+    =>@<li>@forecast.Date.ToLongDateString() - @forecast.Summary</li>;
+
+    private WeatherForecast[] forecasts;
 
 
-    protected override void OnInitialized()
+    protected override async Task  OnInitializedAsync()
     {
-        base.OnInitialized();
-        forecasts = new List<WeatherForecast>();
-        forecasts.Add(new WeatherForecast
-        {
-            Date = new DateTime(2021, 7, 31),
-            TemperatureC = 20,
-            Summary = "Too cold for summer!"
-        });
-           forecasts.Add(new WeatherForecast
-        {
-            Date = new DateTime(2021, 8, 1),
-            TemperatureC = 22,
-            Summary = "Too cold for summer!"
-        });
-
-           forecasts.Add(new WeatherForecast
-        {
-            Date = new DateTime(2021, 8,2),
-            TemperatureC = 25,
-            Summary = "Starting... To get better!"
-        });
+        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
 
     }
 

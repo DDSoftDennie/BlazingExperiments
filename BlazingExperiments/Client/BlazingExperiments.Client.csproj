@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\BlazingExperiments.Components\BlazingExperiments.Components.csproj" />
     <ProjectReference Include="..\Shared\BlazingExperiments.Shared.csproj" />
   </ItemGroup>
 

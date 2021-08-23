@@ -2,7 +2,7 @@
 using System.Threading;
 using Microsoft.AspNetCore.Components;
 
-namespace BlazingExperiments.Client.Pages
+namespace BlazingExperiments.Components
 {
     public class Timer : ComponentBase
     {

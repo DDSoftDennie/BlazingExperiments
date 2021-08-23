@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System;
 
-namespace BlazingExperiments.Client.Pages
+namespace BlazingExperiments.Components
 {
     public partial class DismissableAlert
     {

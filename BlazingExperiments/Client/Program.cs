@@ -1,3 +1,4 @@
+using BlazingExperiments.Client.Services;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,7 +22,7 @@ namespace BlazingExperiments.Client
             {
                 BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
             });
-
+            builder.Services.AddSingleton<IProductsService, HardCodedProductsService>();
             await builder.Build().RunAsync();
         }
     }

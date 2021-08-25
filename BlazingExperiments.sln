@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazingExperiments.Client",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazingExperiments.Shared", "BlazingExperiments\Shared\BlazingExperiments.Shared.csproj", "{54F34CB9-25A2-40E6-93FB-C99E829440E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazingExperiments.Components", "BlazingExperiments.Components\BlazingExperiments.Components.csproj", "{D7619491-87A6-4AF5-AD41-719A45B76373}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazingExperiments.Components", "BlazingExperiments.Components\BlazingExperiments.Components.csproj", "{D7619491-87A6-4AF5-AD41-719A45B76373}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

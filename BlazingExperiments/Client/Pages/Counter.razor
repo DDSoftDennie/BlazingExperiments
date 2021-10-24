@@ -1,11 +1,19 @@
 ﻿@page "/counter"
 @page "/counter/{CurrentCount:int}"
 @layout NestedLayout
+@inject NavigationManager uriHelper
 
-<h1>Counter</h1>
+<h1>Counter 1</h1>
 
 <p class="@colorStyle @align">Current count: @CurrentCount</p>
-<button class="btn btn-primary" @onclick="IncrementCount" disabled="@(CurrentCount >=1000)">Click me</button>
+<button class="btn btn-primary" @onclick="IncrementCount" disabled="@(CurrentCount >=1000)">Click me</button> 
+<button class="btn btn-success" @onclick="StartFrom50">Start From 50</button>
+<p>
+    <br/>
+</p>
+<p>
+    <a class="btn btn-primary" href="/">Home</a> <a class="btn btn-secondary" href="/changeablecounter">Counter 2</a> <a class="btn btn-secondary" href="/ThirdCounter">Counter 3</a>
+</p>
 
 @code {
     private string colorStyle = "blue-color";
@@ -21,4 +29,6 @@
         colorStyle = CurrentCount >= 100 ? colorStyle = "red-color" : "blue-color";
         align = CurrentCount % 2 == 0 ? align = "left" : "right";
     }
+
+    private void StartFrom50() => uriHelper.NavigateTo("/counter/50");
 }

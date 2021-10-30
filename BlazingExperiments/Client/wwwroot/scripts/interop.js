@@ -1,9 +1,7 @@
 ﻿(function () {
     window.blazorLocalStorage =
     {
-        get: key => {
-            key in localStorage ? JSON.parse(localStorage[key]) : null
-        },
+        get: key => key in localStorage ? JSON.parse(localStorage[key]) : null,
         set: (key, value) => {
             localStorage[key] = JSON.stringify(value);
         },

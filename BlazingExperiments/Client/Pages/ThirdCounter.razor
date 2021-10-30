@@ -1,6 +1,6 @@
 ﻿@page "/thirdcounter"
 @layout NestedLayout
-<h3>Counter 3</h3>
+<h2>Counter 3</h2>
 <p>
     <strong>Current count: </strong><input @bind=count  @onkeypress="KeyHandler" @onkeypress:preventDefault="true" />
     <span hidden="@(count <=10)" class="red-color">Count is too high!</span>

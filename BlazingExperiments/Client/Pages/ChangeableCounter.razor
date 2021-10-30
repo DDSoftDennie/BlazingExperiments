@@ -1,7 +1,7 @@
 ﻿@page "/changeablecounter"
 @layout NestedLayout
 
-<h3>Counter 2</h3>
+<h2>Counter 2</h2>
 <p>
     <strong>Current count: </strong><input @bind=count  @bind:event="oninput" />
     <span hidden="@(count <=10)" class="red-color">Count is too high!</span>

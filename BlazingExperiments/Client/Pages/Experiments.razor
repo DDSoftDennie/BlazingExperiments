@@ -1,0 +1,54 @@
+﻿@page "/experiments"
+
+<h1>Experiments</h1>
+
+Positions: <br/>
+<div style="width:400px; height:400px; background:yellow" @onmousemove="OuterMouseMove">
+    @outerPos
+    <div style="width:300px; height:300px; background:green; margin:50px; color:white" @onmousemove="InnerMouseMove" @onmousemove:stopPropagation>
+     @innerPos
+    </div>
+</div>
+Dismissable Alerts: <br/>
+<DismissableAlert @ref="alert" @bind-Show="@ShowAlert">
+    <span class="oi oi-check mr-2" aria-hidden="true"></span>
+    <strong>Blazor is soo cool!</strong>
+</DismissableAlert>"
+
+Timer: <br/>
+<Timer TimeInSeconds="5" Tick="@(() => alert.Dismiss())"/>
+<button @onclick="@ToggleAlert">Toggle</button>
+
+Parent- child relationships: <br/>
+<GrandMother>
+    <GrandChild/>
+    <DismissableAlert Show="true">
+        <GrandChild/>
+    </DismissableAlert>
+</GrandMother>
+
+Lists: <br/>
+<ProductList/>
+@code{
+    private string innerPos = "Nothing yet";
+    private string outerPos;
+    private bool ShowAlert { get; set; } = true;
+    private DismissableAlert alert;
+ 
+
+
+    private void OuterMouseMove(MouseEventArgs e) 
+        => outerPos = $"Mouse last at {e.ClientX}x{e.ClientY}";
+    private void InnerMouseMove(MouseEventArgs e)
+        => innerPos = $"Mouse last at {e.ClientX}x{e.ClientY}";
+
+    public void ToggleAlert()
+    {
+        ShowAlert = !ShowAlert;
+    }
+
+}
+
+@code {
+
+}

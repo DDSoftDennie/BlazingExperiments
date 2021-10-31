@@ -8,5 +8,11 @@
         delete: key => {
             delete localStorage[key];
         },
+        watch: async (instance) => {
+            window.addEventListener('storage', (e) => {
+                console.log("update");
+                instance.invokeMethodAsync('UpdateCounter');
+            });
+        }
     };
 })();

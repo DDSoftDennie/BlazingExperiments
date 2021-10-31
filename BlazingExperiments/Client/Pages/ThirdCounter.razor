@@ -1,26 +1,19 @@
 ﻿@page "/thirdcounter"
-@layout NestedLayout
+@layout CounterLayout
 <h2>Counter 3</h2>
-<p>
-    <strong>Current count: </strong><input @bind=count  @onkeypress="KeyHandler" @onkeypress:preventDefault="true" />
-    <span hidden="@(count <=10)" class="red-color">Count is too high!</span>
+<p class="@colorStyle @align">
+    <strong>Current count: </strong><input @bind=count  @onkeypress="KeyHandler" @onkeypress:preventDefault="true"/> <strong>@count</strong>
+        <span hidden="@(count <=10)" class="red-color">Count is too high!</span>
     <span hidden="@(!numberError)" class="red-color">Only digits alowed!</span>
-    <br />
+</p>
+<p>
     <button class="btn btn-primary" @onclick="Increase">Increase</button>
-    <br />
-     <strong>@count</strong>
 </p>
-<p>
-    <br/>
-</p>
-<p>
-    <a class="btn btn-primary" href="/">Home</a> <a class="btn btn-secondary" href="/counter">Counter 1</a> <a class="btn btn-secondary" href="/changeablecounter">Counter 2</a>
-</p>
-
 @code {
     int count = 0;
     bool numberError = false;
- 
+    private string colorStyle = "blue-color";
+    private string align = "left";
 
     private void Increase()
     {

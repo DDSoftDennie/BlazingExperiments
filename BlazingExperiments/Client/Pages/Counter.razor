@@ -1,39 +1,50 @@
 ﻿@page "/counter"
 @page "/counter/{CurrentCount:int}"
-@layout NestedLayout
+@layout CounterLayout
 @inject NavigationManager uriHelper
 @inject IJSRuntime JSRuntime
+@using BlazingExperiments.Client.Services
+@inject ILocalStorage LocalStorage
 
 <h2>Counter 1</h2>
-
-<p class="@colorStyle @align">Current count: @CurrentCount</p>
-<button class="btn btn-primary" @onclick="IncrementCount" disabled="@(CurrentCount >=1000)">Click me</button> 
-<button class="btn btn-success" @onclick="StartFrom50">Start From 50</button>
+<p class="@colorStyle @align"> Current count: @CurrentCount</p>
 <p>
-    <br/>
-</p>
-<p>
-    <a class="btn btn-primary" href="/">Home</a> <a class="btn btn-secondary" href="/changeablecounter">Counter 2</a> <a class="btn btn-secondary" href="/ThirdCounter">Counter 3</a>
+    <button class="btn btn-primary" @onclick="IncrementCount" disabled="@(CurrentCount >=1000)">Click me</button> 
+    <button class="btn btn-success" @onclick="StartFrom50">Start From 50</button>
 </p>
 
 @code {
 
-     protected override async Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
-        try
+        await LocalStorage.WatchAsync(this);
+
+        int? c = await LocalStorage.GetProperty<int?>(nameof(CurrentCount));
+        if (c.HasValue)
         {
-            int? c = await JSRuntime.InvokeAsync<int?>("blazorLocalStorage.get", nameof(CurrentCount));
-            if (c.HasValue)
-            {
-                currentCount = c.Value;
-            }
+            currentCount = c.Value;
         }
-        catch{}
+
     }
+
+
 
     private string colorStyle = "blue-color";
     private string align = "left";
     private int currentCount = 0;
+
+    [JSInvokable]
+    public async Task UpdateCounter()
+    {
+        Console.WriteLine("Update");
+        int? c = await LocalStorage.GetProperty<int>(nameof(CurrentCount));
+        if(c.HasValue)
+        {
+            currentCount = c.Value;
+        }
+        this.StateHasChanged();
+    }
+
 
     [Parameter]
     public int CurrentCount {
@@ -43,7 +54,7 @@
             if (currentCount != value)
             {
                 currentCount = value;
-                JSRuntime.InvokeAsync<string>("blazorLocalStorage.set", nameof(CurrentCount), currentCount);
+                LocalStorage.SetProperty<int>(nameof(CurrentCount), currentCount);
             }
         }
     }

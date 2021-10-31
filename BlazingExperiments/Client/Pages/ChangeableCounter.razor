@@ -1,33 +1,38 @@
 ﻿@page "/changeablecounter"
-@layout NestedLayout
-
+@layout CounterLayout
+@inject IJSRuntime JSRuntime
+@using BlazingExperiments.Client.Services
+@inject ILocalStorage LocalStorage
 <h2>Counter 2</h2>
-<p>
-    <strong>Current count: </strong><input @bind=count  @bind:event="oninput" />
-    <span hidden="@(count <=10)" class="red-color">Count is too high!</span>
+<p class="@colorStyle @align">
+    <strong>Current count: </strong><input @ref="inputElement" @bind=currentCount  @bind:event="oninput" /> <strong>@currentCount</strong>
+    <span hidden="@(currentCount <=10)" class="red-color">Count is too high!</span>
     <span hidden="@(!numberError)" class="red-color">Only digits alowed!</span>
-    <br />
+</p>
+ <p>
     <button class="btn btn-primary" @onclick="Increase">Increase</button>
-    <br />
-     <strong>@count</strong>
 </p>
-<p>
-    <br/>
-</p>
-<p>
-    <a class="btn btn-primary" href="/">Home</a> <a class="btn btn-secondary" href="/counter">Counter 1</a> <a class="btn btn-secondary" href="/ThirdCounter">Counter 3</a>
-</p>
+
 
 @code {
-    int count = 0;
+    private string colorStyle = "blue-color";
+    private string align = "left";
+    int currentCount = 0;
     bool numberError = false;
- 
+    private ElementReference inputElement;
+
+
+    protected override async Task OnAfterRenderAsync(bool first)
+    {
+        await JSRuntime.InvokeVoidAsync("blazorFocus.set", inputElement);  
+    }
+
 
     private void Increase(EventArgs e)
     {
-        if (count < 10)
+        if (currentCount < 10)
         {
-            count++;
+            currentCount++;
 
         }
     }
@@ -37,8 +42,10 @@
       
        if (e.Key == "-")
         {
-            count = count - 1;
+            currentCount = currentCount - 1;
         }
     }
+
+
 
 }

@@ -27,15 +27,44 @@
         await JSRuntime.InvokeVoidAsync("blazorFocus.set", inputElement);  
     }
 
-
-    private void Increase(EventArgs e)
+    protected override async Task OnInitializedAsync()
     {
-        if (currentCount < 10)
-        {
-            currentCount++;
+        //try
+        //{
+        //    int? c = await JSRuntime.InvokeAsync<int?>("blazorLocalStorage.get", nameof(CurrentCount));
+        //    if (c.HasValue)
+        //    {
+        //        currentCount = c.Value;
+        //    }
+        //}
+        //catch { }
 
+        var objRef = DotNetObjectReference.Create(this);
+        await JSRuntime.InvokeVoidAsync("blazorLocalStorage.watch", objRef);
+
+        int? c = await JSRuntime.InvokeAsync<int?>("blazorLocalStorage.get", nameof(CurrentCount));
+
+        if (c.HasValue)
+        {
+            CurrentCount = c.Value;   
         }
     }
+
+    [Parameter]
+    public int CurrentCount
+    {
+        get => currentCount;
+        set
+        {
+            if(currentCount != value)
+            {
+                currentCount = value;
+                JSRuntime.InvokeAsync<string>("blazorLocalStorage.set", nameof(CurrentCount), currentCount);
+            }
+        }
+    }
+
+    private void Increase() => CurrentCount += 1;
 
     private void KeyHandler(KeyboardEventArgs e)
     {

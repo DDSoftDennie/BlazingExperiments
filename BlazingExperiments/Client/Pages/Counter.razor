@@ -15,14 +15,14 @@
 
 @code {
 
+
     protected override async Task OnInitializedAsync()
     {
         await LocalStorage.WatchAsync(this);
-
         int? c = await LocalStorage.GetProperty<int?>(nameof(CurrentCount));
-        if (c.HasValue)
+        if(c.HasValue)
         {
-            currentCount = c.Value;
+            CurrentCount = c.Value;
         }
 
     }
